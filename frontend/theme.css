@@ -1,0 +1,16 @@
+:root {
+  /* Core Palette */
+  --primary: #7cefa0;        /* main buttons & highlights */
+  --secondary: #20B2AA;      /* secondary buttons & badges */
+  --accent: #87eba5;         /* hover, subtle highlights */
+  --highlight: #FFD700;      /* call-to-action & accent text */
+  --neutral: #C0C0C0;        /* muted text & borders */
+
+  /* Backgrounds & Text */
+  --bg-main: #fdfdfd;        /* page background */
+  --bg-card: #ffffff;        /* card background */
+  --text-dark: #1f2933;      /* primary text */
+  --text-muted: #6b7280;     /* secondary text */
+  --text-light: #ffffff;     /* text on colored backgrounds */
+  --border-light: #e5e7eb;   /* card borders / subtle dividers */
+}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Place Details</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="details.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">SoulScape</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="explore.html">Explore</a></li>
+    <li><a href="add-place.html">Add Place</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="banner">
+  <img id="placeImage" alt="Place Image">
+  <div class="overlay"></div>
+  <h1 id="placeTitle" class="banner-title"></h1>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+  <div class="section-card" id="locationSection" style="display:none;">
+    <h2>Location</h2>
+    <p id="placeLocation"></p>
+  </div>
+
+  <div class="section-card" id="descriptionSection" style="display:none;">
+    <h2>Description</h2>
+    <p id="placeDescription"></p>
+  </div>
+
+  <div class="section-card" id="infoSection" style="display:none;">
+    <h2>More Info</h2>
+    <p id="placeInfo"></p>
+  </div>
+
+  <div class="section-card" id="reachSection" style="display:none;">
+    <h2>How to Reach</h2>
+    <p id="placeReach"></p>
+  </div>
+
+  <div class="section-card" id="timeSection" style="display:none;">
+    <h2>Best Time to Visit</h2>
+    <p id="placeTime"></p>
+  </div>
+
+  <div class="section-card" id="gallerySection" style="display:none;">
+    <h2>Gallery</h2>
+    <div class="gallery" id="placeGallery"></div>
+  </div>
+  <div class="section-card">
+  <h2>✨ You may also like</h2>
+  <div id="recommendations" class="recommend-grid"></div>
+</div>
+
+
+  <button class="back-btn" onclick="history.back()">← Go Back</button>
+</div>
+
+<!-- SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const place = JSON.parse(localStorage.getItem("selectedPlace"));
+
+  if (!place) {
+    document.body.innerHTML = "<h2 style='text-align:center'>Place not found 🌿</h2>";
+    return;
+  }
+
+  document.getElementById("placeImage").src =
+    place.image?.trim() || "https://via.placeholder.com/1200x500";
+
+  document.getElementById("placeTitle").innerText = place.title || "";
+
+  if (place.location?.trim()) {
+    document.getElementById("locationSection").style.display = "block";
+    document.getElementById("placeLocation").innerText = place.location;
+  }
+
+  if (place.description?.trim()) {
+    document.getElementById("descriptionSection").style.display = "block";
+    document.getElementById("placeDescription").innerText = place.description;
+  }
+
+  if (place.info?.trim()) {
+    document.getElementById("infoSection").style.display = "block";
+    document.getElementById("placeInfo").innerText = place.info;
+  }
+
+  if (place.reach?.trim()) {
+    document.getElementById("reachSection").style.display = "block";
+    document.getElementById("placeReach").innerText = place.reach;
+  }
+
+  if (place.bestTime?.trim()) {
+    document.getElementById("timeSection").style.display = "block";
+    document.getElementById("placeTime").innerText = place.bestTime;
+  }
+
+  if (Array.isArray(place.gallery) && place.gallery.length > 0) {
+    document.getElementById("gallerySection").style.display = "block";
+    const gallery = document.getElementById("placeGallery");
+
+    place.gallery.forEach(src => {
+      if (src.trim()) {
+        const img = document.createElement("img");
+        img.src = src;
+        img.className = "gallery-img";
+        gallery.appendChild(img);
+      }
+    });
+  }
+  loadRecommendations(place);
+
+  function loadRecommendations(currentPlace) {
+  const allPlaces = JSON.parse(localStorage.getItem("allPlaces")) || [];
+  const container = document.getElementById("recommendations");
+
+  if (!container || !allPlaces.length) return;
+
+  // Simple similarity score
+  const scored = allPlaces
+    .filter(p => p.title !== currentPlace.title)
+    .map(p => {
+      let score = 0;
+
+      if (p.category === currentPlace.category) score += 3;
+
+      const words1 = currentPlace.description.toLowerCase().split(" ");
+      const words2 = p.description.toLowerCase().split(" ");
+
+      score += words1.filter(w => words2.includes(w)).length;
+
+      return { ...p, score };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4);
+
+  scored.forEach(place => {
+    const card = document.createElement("div");
+    card.className = "recommend-card";
+    card.innerHTML = `
+      <img src="${place.image}">
+      <h4>${place.title}</h4>
+    `;
+    card.onclick = () => {
+      localStorage.setItem("selectedPlace", JSON.stringify(place));
+      window.location.reload();
+    };
+    container.appendChild(card);
+  });
+}
+
+});
+</script>
+
+</body>
+</html>

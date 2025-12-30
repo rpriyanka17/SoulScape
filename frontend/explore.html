@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SoulScape | Explore</title>
+    <link rel="icon" href="SoulScape-logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="theme.css">
+
+    <link rel="stylesheet" href="explore.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav>
+            <div class="logo">SoulScape</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a class="active" href="explore.html">Explore</a></li>
+                <li><a href="index.html#categories">Categories</a></li>
+                <li><a href="index.html#community">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="explore-hero">
+        <h1>Explore Hidden Gems ✨</h1>
+        <p>Discover authentic places beyond the usual tourist paths</p>
+    </section>
+    
+
+    <!-- MAIN CONTENT AREA -->
+    <section class="explore-container">
+        
+        <!-- SEARCH BAR -->
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Search places..." />
+            <button class="search-btn" id="searchBtn">Search</button>
+        </div>
+
+        <!-- FILTERS (buttons will filter by simple keywords) -->
+        <div class="filters">
+            <button class="filter-btn" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="beach">Beaches</button>
+            <button class="filter-btn" data-filter="hill">Hill Stations</button>
+            <button class="filter-btn" data-filter="historical">Historical</button>
+            <button class="filter-btn" data-filter="adventure">Adventure</button>
+            <button class="filter-btn" data-filter="spiritual">Spiritual</button>
+        </div>
+
+        <!-- DESTINATION CARDS GRID -->
+<div class="destination-grid">
+
+  <!-- Static cards -->
+  <div class="dest-card">
+    <img src="images/place1.webp" alt="">
+    <h3>Alamparai Fort</h3>
+    <p>Historic seaside fort with peaceful scenic vibes.</p>
+    <a href="Alamparai-details.html" class="view-btn">View Details</a>
+    <button class="save-btn">❤️</button>
+  </div>
+
+  <div class="dest-card">
+    <img src="images/place2.webp" alt="">
+    <h3>Kovalam Surf Village</h3>
+    <p>A vibrant surf haven where calm waves meet coastal chill.</p>
+    <a href="Kovalam-details.html" class="view-btn">View Details</a>
+    <button class="save-btn">❤️</button>
+  </div>
+
+  <div class="dest-card">
+    <img src="images/place3.webp" alt="">
+    <h3>Pulicat Lagoon</h3>
+    <p>A serene waterscape of birds, boats, and untouched beauty.</p>
+    <a href="Pulicat-details.html" class="view-btn">View Details</a>
+    <button class="save-btn">❤️</button>
+  </div>
+
+</div>
+<section class="community-section">
+  <h2>Community Contributions 🌍</h2>
+  <div id="communityGrid" class="place-grid"></div>
+</section>
+<!-- 🔥 ONE container for dynamic places -->
+<section id="placesContainer" class="destination-grid"></section>
+
+    </section>
+    
+
+    
+    <script src="explore.js"></script>
+</body>
+</html>

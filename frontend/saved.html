@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saved Places</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="explore.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo">SoulScape</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="explore.html">Explore</a></li>
+    <li><a class="active" href="#">Saved ❤️</a></li>
+  </ul>
+</nav>
+
+<section class="explore-hero">
+  <h1>Your Saved Places ❤️</h1>
+  <p>Places you want to return to someday</p>
+</section>
+
+<div class="destination-grid" id="savedContainer"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("savedContainer");
+  const saved = JSON.parse(localStorage.getItem("savedPlaces")) || [];
+
+  if (!saved.length) {
+    container.innerHTML = "<p style='text-align:center'>No saved places yet 🌿</p>";
+    return;
+  }
+
+  saved.forEach(place => {
+    const card = document.createElement("div");
+    card.className = "dest-card";
+
+    card.innerHTML = `
+      <img src="${place.image}">
+      <h3>${place.title}</h3>
+      <p>${place.description}</p>
+      <button class="view-btn">View Details</button>
+    `;
+
+    card.querySelector(".view-btn").onclick = () => {
+      localStorage.setItem("selectedPlace", JSON.stringify(place));
+      window.location.href = "place-details.html";
+    };
+
+    container.appendChild(card);
+  });
+});
+</script>
+
+</body>
+</html>

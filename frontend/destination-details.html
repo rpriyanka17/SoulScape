@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SoulScape | Destination Details</title>
+    <link rel="icon" href="SoulScape-logo.jpg" type="image/jpeg">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="details.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <style>
+        :root {
+            --bg-page: #f4f7f5;
+            --bg-card: #ffffff;
+            --accent: #3fa88b;
+            --accent-soft: #e3f4ef;
+            --text-main: #1f2d2a;
+            --text-muted: #6b7f7a;
+            --border-soft: #dce9e4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body { background: var(--bg-page); color: var(--text-main); }
+
+        /* NAVBAR */
+        nav {
+            position: fixed;
+            top: 0; width: 100%; padding: 16px 40px;
+            background: var(--bg-card);
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); z-index: 100;
+        }
+        .logo { font-size: 24px; font-weight: 700; color: var(--accent); }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a { text-decoration: none; color: var(--text-muted); font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); font-weight: 600; }
+
+        /* HERO BANNER */
+        .banner { position: relative; margin-top: 80px; border-radius: 14px; overflow: hidden; }
+        .banner img { width: 100%; height: 350px; object-fit: cover; display: block; }
+        .overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(63,168,139,0.3); }
+        .banner-title { position: absolute; bottom: 25px; left: 40px; color: white; font-size: 2.8rem; font-weight: bold; text-shadow: 1px 1px 5px rgba(0,0,0,0.3); }
+
+        /* CONTENT */
+        .container { padding: 40px; max-width: 900px; margin: auto; }
+        .section-card { background: var(--bg-card); padding: 25px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 8px 20px rgba(63,168,139,0.08); transition: transform 0.2s; }
+        .section-card:hover { transform: translateY(-2px); }
+        .section-card h2 { margin-bottom: 12px; color: var(--accent); }
+        .section-card p { color: var(--text-main); line-height: 1.6; }
+
+        /* GALLERY */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .gallery img { width: 100%; border-radius: 12px; object-fit: cover; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .gallery img:hover { transform: scale(1.03); box-shadow: 0 8px 20px rgba(63,168,139,0.25); }
+
+        /* BUTTONS */
+        .back-btn { padding: 14px 24px; border: none; background: var(--accent); color: white; border-radius: 14px; font-size: 16px; cursor: pointer; transition: 0.2s; }
+        .back-btn:hover { background: #35806d; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(63,168,139,0.3); }
+
+        #backToTop {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border: none;
+            border-radius: 50%; background: var(--accent); color: #fff; font-size: 22px; cursor: pointer;
+            display: none; justify-content: center; align-items: center; box-shadow: 0 6px 18px rgba(63,168,139,0.3);
+            transition: 0.3s ease; z-index: 999;
+        }
+        #backToTop:hover { background: #35806d; }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav>
+            <div class="logo">SoulScape</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="index.html#categories">Categories</a></li>
+                <li><a href="index.html#community">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="banner" data-aos="fade-up">
+        <img id="placeBanner" src="images/default.jpg" alt="Banner">
+        <div class="overlay"></div>
+        <h1 class="banner-title" id="placeTitle">Unknown Place</h1>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="container">
+
+        <!-- ABOUT -->
+        <div class="section-card" data-aos="fade-up">
+            <h2>About the Place</h2>
+            <p id="placeDescription">No description available</p>
+        </div>
+
+        <!-- GALLERY -->
+        <div class="section-card" data-aos="fade-up">
+            <h2>Gallery</h2>
+            <div class="gallery" id="placeGallery">
+                <p style="color:#777;">No extra images available</p>
+            </div>
+        </div>
+
+        <!-- HOW TO REACH -->
+        <div class="section-card" data-aos="fade-up">
+            <h2>How to Reach</h2>
+            <p id="placeReach">No travel info available</p>
+        </div>
+
+        <!-- BEST TIME -->
+        <div class="section-card" data-aos="fade-up">
+            <h2>Best Time to Visit</h2>
+            <p id="placeTime">Not mentioned</p>
+        </div>
+
+        <button class="back-btn" onclick="history.back()">← Back</button>
+    </section>
+
+    <button id="backToTop">↑</button>
+
+    <script src="script.js"></script>
+    <script>
+  AOS.init({ duration: 900, once: true });
+
+  // -----------------------------
+  // LOAD SELECTED PLACE DETAILS
+  // -----------------------------
+  const place = JSON.parse(localStorage.getItem("selectedPlace"));
+
+if (!place) {
+  document.getElementById("placeTitle").textContent = "Unknown Place";
+} else {
+
+  document.getElementById("placeTitle").textContent = place.title;
+  document.getElementById("placeBanner").src = place.image || "images/default.jpg";
+  document.getElementById("placeDescription").textContent =
+    place.description || "No description available";
+
+  /* -------- GALLERY -------- */
+  const gallerySection = document.getElementById("placeGallery").parentElement;
+  const gallery = document.getElementById("placeGallery");
+  gallery.innerHTML = "";
+
+  if (place.gallery && place.gallery.length > 0) {
+    place.gallery.forEach(img => {
+      const image = document.createElement("img");
+      image.src = img;
+      gallery.appendChild(image);
+    });
+  } else {
+    gallerySection.style.display = "none";
+  }
+
+  /* -------- HOW TO REACH -------- */
+  const reachSection = document.getElementById("placeReach").parentElement;
+  if (place.reach) {
+    document.getElementById("placeReach").textContent = place.reach;
+  } else {
+    reachSection.style.display = "none";
+  }
+
+  /* -------- BEST TIME -------- */
+  const timeSection = document.getElementById("placeTime").parentElement;
+  if (place.bestTime) {
+    document.getElementById("placeTime").textContent = place.bestTime;
+  } else {
+    timeSection.style.display = "none";
+  }
+}
+
+  // -----------------------------
+  // BACK TO TOP BUTTON
+  // -----------------------------
+  const backToTop = document.getElementById("backToTop");
+  window.addEventListener("scroll", () => {
+    backToTop.style.display = window.scrollY > 300 ? "flex" : "none";
+  });
+  backToTop.addEventListener("click", () =>
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  );
+</script>
+
+
+
+</body>
+</html>

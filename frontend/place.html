@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SoulScape | Destination Details</title>
+    <link rel="icon" href="SoulScape-logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="theme.css">
+
+    <link rel="stylesheet" href="details.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav>
+            <div class="logo">SoulScape</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="index.html#categories">Categories</a></li>
+                <li><a href="index.html#community">Community</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="banner" data-aos="fade-up">
+        <img id="placeBanner" src="" alt="Banner">
+        <div class="overlay"></div>
+        <h1 class="banner-title" id="placeTitle"></h1>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="container">
+
+        <!-- ABOUT -->
+        <div class="section-card" data-aos="fade-up">
+            <h2>About the Place</h2>
+            <p id="placeDescription"></p>
+        </div>
+
+        <!-- GALLERY -->
+        <div class="section-card" data-aos="fade-up">
+            <h2>Gallery</h2>
+            <div class="gallery" id="placeGallery">
+                <!-- JS will inject gallery images if available -->
+            </div>
+        </div>
+
+        <!-- HOW TO REACH -->
+        <div class="section-card" data-aos="fade-up">
+            <h2>How to Reach</h2>
+            <p id="placeReach">No travel info available.</p>
+        </div>
+
+        <!-- BEST TIME -->
+        <div class="section-card" data-aos="fade-up">
+            <h2>Best Time to Visit</h2>
+            <p id="placeTime">Not mentioned</p>
+        </div>
+
+        <button class="back-btn" onclick="history.back()">← Back</button>
+    </section>
+
+    <button id="backToTop">↑</button>
+
+    <script src="script.js"></script>
+
+    <script>
+        AOS.init({ duration: 900, once: true });
+
+        // -----------------------------
+        // LOAD SELECTED PLACE DETAILS
+        // -----------------------------
+        const place = JSON.parse(localStorage.getItem("selectedPlace"));
+
+        if (!place) {
+            document.querySelector(".banner-title").textContent = "Unknown Place";
+        } else {
+            document.getElementById("placeTitle").textContent = place.title;
+            document.getElementById("placeBanner").src = place.image || "images/default.jpg";
+            document.getElementById("placeDescription").textContent = place.description || "No description available";
+
+            // Gallery
+            const gallery = document.getElementById("placeGallery");
+            if (place.gallery && place.gallery.length > 0) {
+                place.gallery.forEach(img => {
+                    const image = document.createElement("img");
+                    image.src = img;
+                    image.setAttribute("data-aos", "zoom-in");
+                    gallery.appendChild(image);
+                });
+            } else {
+                gallery.innerHTML = `<p style="color:#777;">No extra images available</p>`;
+            }
+
+            // How to reach
+            document.getElementById("placeReach").textContent =
+                place.reach || "No travel info available.";
+
+            // Best time
+            document.getElementById("placeTime").textContent =
+                place.time || "Not mentioned";
+        }
+    </script>
+
+</body>
+</html>

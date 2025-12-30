@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SoulScape</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="SoulScape-logo.jpg" type="image/jpeg">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+    <nav>
+        <div class="logo">SoulScape</div>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#community">Community</a></li>
+            <li><a href="saved.html">Saved ❤️</a></li>
+
+        </ul>
+
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+</header>
+
+
+<!-- HERO SECTION -->
+<section id="home" class="hero" data-aos="fade-up">
+    <h1 data-aos="zoom-in">Discover Unexplored Corners</h1>
+    <p data-aos="fade-up" data-aos-delay="200">Find hidden culture, heritage, and local stories</p>
+</section>
+
+
+<!-- FEATURED DESTINATIONS -->
+<section class="featured">
+    <h2>Featured Destinations</h2>
+
+    <div class="destinations-container" data-aos="fade-up">
+
+        <div class="destination-card" onclick="window.location.href='Alamparai-details.html'">
+            <img src="images/place1.webp">
+            <h3>Alamparai Fort</h3>
+            <p>Ancient fort walls by the sea with peaceful backwaters and stunning sunset vibes.</p>
+            <button>View More</button>
+            
+        </div>
+
+        <div class="destination-card" onclick="window.location.href='Kovalam-details.html'">
+            <img src="images/place2.webp">
+            <h3>Kovalam Surf Village</h3>
+            <p>A lively coastal village where locals teach surfing and share real beach culture.</p>
+            <button>View More</button>
+            
+        </div>
+
+        <div class="destination-card" onclick="window.location.href='Pulicat-details.html'">
+            <img src="images/place3.webp">
+            <h3>Pulicat Lagoon</h3>
+            <p>Calm lagoon with flamingos, boat rides, and a quiet escape from the city.</p>
+            <button>View More</button>
+            
+        </div>
+
+    </div>
+</section>
+
+
+<!-- EXPLORE FROM NEW PLACES -->
+<section id="explore" class="explore-section">
+    <h2 data-aos="fade-right">Explore Hidden Spots</h2>
+
+    <a href="explore.html" class="see-all-btn" data-aos="fade-up" data-aos-delay="200">See All →</a>
+
+    <div id="exploreContainer" class="destinations-container"></div>
+</section>
+
+
+<!-- CATEGORIES -->
+<section id="categories" class="categories-section">
+    <h2 data-aos="fade-left">Categories</h2>
+    <div class="category-grid" data-aos="zoom-in">
+        <div class="category-card"><h3>Culture</h3><p>Local stories, art & traditions</p></div>
+        <div class="category-card"><h3>Food</h3><p>Hidden cafés & regional dishes</p></div>
+        <div class="category-card"><h3>Nature</h3><p>Waterfalls, hills & peaceful spots</p></div>
+        <div class="category-card"><h3>Heritage</h3><p>Temples, monuments & history</p></div>
+        <div class="category-card"><h3>Handicrafts</h3><p>Local artisans & handmade products</p></div>
+    </div>
+</section>
+
+
+<!-- COMMUNITY -->
+<section class="community-section" id="community">
+
+    <div class="community-header">
+        <h2>Community Contributions 💬</h2>
+        <p>Hidden gems shared by curious explorers like you</p>
+
+        <a href="add-place.html" class="add-place-btn">
+            ✨ Share a Place
+        </a>
+    </div>
+
+    <div class="community-grid" id="communityGrid">
+        <div class="community-card">
+    <img src="images/gokarna.jfif" alt="Place Image">
+
+    <div class="card-content">
+        <h3>Hidden Beach</h3>
+        <p class="location">📍 Gokarna, Karnataka</p>
+
+        <p class="description">
+            A quiet beach with golden sand and unreal sunsets. Perfect for peace lovers.
+        </p>
+
+        <div class="card-footer">
+            <span class="contributor">By Priyuuu</span>
+
+            <button class="like-btn">
+                ❤️ <span>12</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <h3>SoulScape</h3>
+        <p>Discover hidden gems & unexplored stories across the Globe.</p>
+
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="explore.html">Explore</a>
+            <a href="#categories">Categories</a>
+            <a href="#community">Community</a>
+        </div>
+
+        <p class="copy">© 2025 SoulScape. All rights reserved.</p>
+    </div>
+</footer>
+
+<button id="backToTop">↑</button>
+
+
+<!-- JS -->
+<script src="script.js"></script>
+
+<script>
+AOS.init({ duration: 900, once: true });
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadPlaces();
+});
+
+function viewPlace(index) {
+    localStorage.setItem("selectedPlace", index);
+    window.location.href = "place-details.html";
+}
+
+function loadPlaces() {
+    const container = document.getElementById("exploreContainer");
+    let places = JSON.parse(localStorage.getItem("places")) || [];
+
+    container.innerHTML = "";
+
+    places.forEach((place, i) => {
+        const card = `
+            <div class="destination-card" onclick="viewPlace(${i})">
+                <img src="${place.image || 'images/default.jpg'}">
+                <h3>${place.title}</h3>
+                <p>${place.description}</p>
+                <button>View Details</button>
+            </div>
+        `;
+        container.innerHTML += card;
+    });
+}
+document.addEventListener("click", (e) => {
+    if (e.target.closest(".like-btn")) {
+        const btn = e.target.closest(".like-btn");
+        const span = btn.querySelector("span");
+
+        let count = parseInt(span.textContent);
+        count++;
+
+        span.textContent = count;
+    }
+});
+
+
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    loadCommunityPlaces();
+});
+
+function loadCommunityPlaces() {
+    const grid = document.getElementById("communityGrid");
+    let places = JSON.parse(localStorage.getItem("places")) || [];
+
+    grid.innerHTML = "";
+
+    if (places.length === 0) {
+        grid.innerHTML = "<p>No community contributions yet 🌱</p>";
+        return;
+    }
+
+    places.slice(-3).reverse().forEach(place => {
+        const card = `
+<div class="community-card" data-aos="fade-up">
+    <img src="${place.image || 'images/default.jpg'}" />
+
+    <div class="card-content">
+        <div class="card-top">
+            <h3>${place.title}</h3>
+            <span class="tag">Community</span>
+        </div>
+
+        <p class="location">📍 ${place.location}</p>
+
+        <p class="description">
+            ${place.description.substring(0, 90)}...
+        </p>
+
+        <div class="card-footer">
+            <span class="contributor">✨ Shared by Explorer</span>
+
+            <button class="like-btn">
+                ❤️ <span>0</span>
+            </button>
+        </div>
+    </div>
+</div>
+`;
+
+        grid.innerHTML += card;
+    });
+}
+</script>
+<script>
+async function loadCommunityPlaces() {
+    const grid = document.getElementById("communityGrid");
+
+    try {
+        const res = await fetch("http://localhost:5000/api/places");
+        const places = await res.json();
+
+        grid.innerHTML = "";
+
+        if (!places.length) {
+            grid.innerHTML = "<p>No community contributions yet 🌱</p>";
+            return;
+        }
+
+        places.forEach(place => {
+            const card = `
+            <div class="community-card" data-aos="fade-up">
+                <img src="${place.image || 'images/default.jpg'}">
+
+                <div class="card-content">
+                    <div class="card-top">
+                        <h3>${place.title}</h3>
+                        <span class="tag">Community</span>
+                    </div>
+
+                    <p class="location">📍 ${place.location}</p>
+
+                    <p class="description">
+                        ${place.description.substring(0, 90)}...
+                    </p>
+
+                    <div class="card-footer">
+                        <span class="contributor">✨ Shared by Explorer</span>
+                        <button class="like-btn">❤️ <span>0</span></button>
+                    </div>
+                </div>
+            </div>
+            `;
+            grid.innerHTML += card;
+        });
+
+        AOS.refresh();
+
+    } catch (err) {
+        console.error("Community load failed", err);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadCommunityPlaces);
+</script>
+
+
+
+
+</body>
+</html>
